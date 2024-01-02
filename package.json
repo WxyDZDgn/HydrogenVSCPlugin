@@ -1,0 +1,25 @@
+{
+  "name": "hydrogen",
+  "displayName": "Hydrogen",
+  "description": "Hydrogen is a Turing complete programming language.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "hdg",
+      "aliases": ["Hydrogen", "hdg"],
+      "extensions": [".hdg"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "hdg",
+      "scopeName": "source.hdg",
+      "path": "./syntaxes/hdg.tmLanguage.json"
+    }]
+  }
+}
