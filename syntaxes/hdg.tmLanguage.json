@@ -7,13 +7,16 @@
 		},
 		{
 			"include": "#strings"
+		},
+		{
+			"include": "#variable"
 		}
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.hdg",
-				"match": "\\b(if|while|for|return)\\b"
+				"match": "\\b(if|elif|else|while|function|var)\\b"
 			}]
 		},
 		"strings": {
