@@ -1,65 +1,20 @@
-# hydrogen README
+# 海琛 VSC 插件
 
-This is the README for your extension "hydrogen". After writing up a brief description, we recommend including the following sections.
+## 项目介绍
 
-## Features
+本项目为向[海琛](https://github.com/hereismg/Hydrogen)编程语言提供的 VSC 插件，提供对 `HDG` 代码块的语法高亮、自动补全以及错误提示.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+PS: 目前版本只完成了语法高亮和自动补全的部分内容，其余内容正在更新中.
 
-For example if there is an image subfolder under your extension project workspace:
+注意，本项目只针对海琛**重构后**的版本适配，即目前 `feature` 分支下的内容.
 
-\!\[feature X\]\(images/feature-x.png\)
+## 源码编译
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+由于目前还没有发布（或许以后将发布或提供 `Release`），本项目只能从源码编译. 编译流程如下：
 
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+1. 配置 `npm` 环境；
+2. 下载本项目；
+3. 在项目的根目录下运行 `code .` 用 VSC 打开文件夹；
+4. 在 VSC 终端中运行 `npm install`；
+5. 在 VSC 终端中运行 `npm run compile`；
+6. 在 VSC "运行和调试" 中选择 `Launch Client` 并运行即可启动插件，此操作将打开新窗口，利用新窗口打开 `HDG` 文件即可.
