@@ -1,3 +1,5 @@
+import { Position } from './position';
+
 export class Token {
 	public static Type = {
 		INT: 'INT',
@@ -37,15 +39,22 @@ export class Token {
 		EL: 'EL',         ///> end of line 有两种表达字符：“;” and “\n”
 	};
 
-	protected position: number;
+	protected position: Position;
 	protected type: string;
-	protected value: string | null;
-	protected positionEnd: number;
+	protected value: string;
 
-	public constructor(type: string, position: number, value = "", positionEnd: number = position + 1) {
+	public constructor(type: string, position: Position, value = '') {
 		this.position = position;
 		this.value = value;
 		this.type = type;
-		this.positionEnd = positionEnd;
+	}
+	public getType() {
+		return this.type;
+	}
+	public thisPosition() {
+		return this.position;
+	}
+	public getValue() {
+		return this.value;
 	}
 }

@@ -1,1 +1,1 @@
-{"root":["./src/lexer.ts","./src/server.ts","./src/token.ts"],"version":"5.8.3"}
+{"root":["./src/environment.ts","./src/lexer.ts","./src/node.ts","./src/object.ts","./src/parser.ts","./src/position.ts","./src/server.ts","./src/token.ts"],"version":"5.8.3"}
