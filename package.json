@@ -18,12 +18,19 @@
 	],
 	"main": "./client/out/extension",
 	"contributes": {
-		"languages": [{
-			"id": "hdg",
-			"aliases": ["Hydrogen", "hdg"],
-			"extensions": [".hdg"],
-			"configuration": "./language-configuration.json"
-		}],
+		"languages": [
+			{
+				"id": "hdg",
+				"aliases": [
+					"Hydrogen",
+					"hdg"
+				],
+				"extensions": [
+					".hdg"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
 		"grammars": [
 			{
 				"language": "hdg",
@@ -61,15 +68,18 @@
 		"watch": "tsc -b -w",
 		"lint": "eslint",
 		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
-		"test": "sh ./scripts/e2e.sh"
+		"test": "mocha 'server/test/**/*.test.ts' --require ts-node/register"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.13.0",
 		"@stylistic/eslint-plugin": "^2.9.0",
-		"@types/mocha": "^10.0.6",
+		"@types/chai": "^5.2.2",
+		"@types/mocha": "^10.0.10",
 		"@types/node": "^20",
+		"chai": "^5.2.0",
 		"eslint": "^9.13.0",
-		"mocha": "^10.3.0",
+		"mocha": "^10.8.2",
+		"ts-node": "^10.9.2",
 		"typescript": "^5.8.2",
 		"typescript-eslint": "^8.26.0"
 	}

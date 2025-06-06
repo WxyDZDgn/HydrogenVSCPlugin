@@ -1,5 +1,6 @@
 import { Environment } from './environment';
 import { Position } from './position';
+import { Token } from './token';
 
 /**********************************************
  * Node
@@ -36,7 +37,7 @@ export class AssignNode extends Node {
 export class DefNode extends Node {
 	protected name: string;
 	protected val: Node | null;
-	public constructor(name = '', val = null, position = new Position()) {
+	public constructor(name = '', val: Node | null = null, position = new Position()) {
 		super(position);
 		this.name = name;
 		this.val = val;
@@ -46,10 +47,19 @@ export class DefNode extends Node {
 export class IfStmtNode extends Node {
 	protected cond: Node[];
 	protected exeUnit: Node[];
+	protected elseExeUnit: Node | null;
 	public constructor() {
 		super();
 		this.cond = [];
 		this.exeUnit = [];
+		this.elseExeUnit = null;
+	}
+	public addBranch(cond: Node, exeUnit: Node) {
+		this.cond.push(cond);
+		this.exeUnit.push(exeUnit);
+	}
+	public addElseBranch(exeUnit: Node) {
+		this.elseExeUnit = exeUnit;
 	}
 }
 
@@ -107,6 +117,18 @@ export class PostfixNode extends Node {
 	}
 }
 
+export class BinOperNode extends Node {
+	protected oper: Token;
+	protected left: Node;
+	protected right: Node;
+	public constructor(oper: Token, left: Node, right: Node, pos = new Position()) {
+		super(pos);
+		this.oper = oper;
+		this.left = left;
+		this.right = right;
+	}
+}
+
 /**********************************************
  * ObjectNode
  **********************************************/
@@ -140,5 +162,23 @@ export class StrNode extends ObjectNode {
 	public constructor(value = '', position = new Position(), environment = new Environment()) {
 		super('String', position, environment);
 		this.value = value;
+	}
+}
+
+export class FuncObjNode extends ObjectNode {
+	protected args: string[];
+	protected body: Node;
+	public constructor(args: string[], body: Node, pos: Position) {
+		super('', pos);
+		this.args = args;
+		this.body = body;
+	}
+}
+
+export class ListObjNode extends ObjectNode {
+	protected exprList: Node[];
+	public constructor(exprList: Node[], pos = new Position()) {
+		super('', pos);
+		this.exprList = exprList;
 	}
 }

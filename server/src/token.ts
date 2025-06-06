@@ -57,4 +57,7 @@ export class Token {
 	public getValue() {
 		return this.value;
 	}
+	public match(type: string, value: string): boolean {
+		return this.type === type && this.value === value;
+	}
 }
