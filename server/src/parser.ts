@@ -4,11 +4,17 @@ import { Position } from './position';
 import { Token } from './token';
 
 export class Parser {
+    public static Type = {
+		EXPR: 'EXPR',
+        IF_STMT: 'IF_STMT',
+        EXE_UNIT: 'EXE_UNIT',
+        VAR_DEF: 'VAR_DEF',
+	};
     protected tokens: Token[];
     protected environment: Environment;
     protected currentToken: number;
     protected resultNode: Node | null;
-    public constructor(tokens: Token[], environment: Environment) {
+    public constructor(tokens: Token[], environment: Environment = new Environment()) {
         this.tokens = tokens;
         this.environment = environment;
         this.currentToken = 0;

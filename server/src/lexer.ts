@@ -88,7 +88,7 @@ export class Lexer {
 			this.advance();
 		}
 
-		this.tokens.push(new Token(tp, new Position(posStart, this.position), this.code.substring(posStart, this.position)));
+		this.tokens.push(new Token(tp, this.code.substring(posStart, this.position), new Position(posStart, this.position)));
 	}
 
 	public buildGreaterThan() {
@@ -102,7 +102,7 @@ export class Lexer {
 			this.advance();
 		}
 
-		this.tokens.push(new Token(tp, new Position(posStart, this.position), ''));
+		this.tokens.push(new Token(tp, '', new Position(posStart, this.position)));
 	}
 
 	public buildLessThan() {
@@ -116,10 +116,10 @@ export class Lexer {
 			this.advance();
 		}
 
-		this.tokens.push(new Token(tp, new Position(posStart, this.position), ''));
+		this.tokens.push(new Token(tp, '', new Position(posStart, this.position)));
 	}
 
-	public buildEqation() {
+	public buildEquation() {
 		const posStart: number = this.position;
 		let tp: string = Token.Type.EQ;
 
@@ -130,7 +130,22 @@ export class Lexer {
 			this.advance();
 		}
 
-		this.tokens.push(new Token(tp, new Position(posStart, this.position), ''));
+		this.tokens.push(new Token(tp, '', new Position(posStart, this.position)));
+	}
+
+	public buildNotEquation() {
+		const posStart: number = this.position;
+
+		this.advance();
+
+		if(this.position < this.code.length && this.currentChar === '=') {
+			const tp = Token.Type.NE;
+			this.advance();
+			this.tokens.push(new Token(tp, '', new Position(posStart, this.position)));
+		} else {
+			throw Error(`Unrecognized Character '!'`);
+		}
+
 	}
 
 	public buildIdentifier() {
@@ -147,7 +162,7 @@ export class Lexer {
 		if(keywordSet.has(value)) {
 			tp = Token.Type.KEYWORD;
 		}
-		this.tokens.push(new Token(tp, new Position(posStart, this.position), value));
+		this.tokens.push(new Token(tp, value, new Position(posStart, this.position)));
 
 	}
 
@@ -177,7 +192,7 @@ export class Lexer {
 			this.advance();
 		}
 		this.advance();
-		this.tokens.push(new Token(Token.Type.STRING, new Position(posStart, this.position), str));
+		this.tokens.push(new Token(Token.Type.STRING, str, new Position(posStart, this.position)));
 	}
 
 	public run(): Token[] {
@@ -193,59 +208,61 @@ export class Lexer {
 			} else if(this.currentChar === '<') {
 				this.buildLessThan();
 			} else if(this.currentChar === '=') {
-				this.buildEqation();
+				this.buildEquation();
+			} else if(this.currentChar === '!') {
+				this.buildNotEquation();
 			} else if(this.currentChar === '"') {
 				this.buildString();
 			} else if(this.currentChar === '\n' || this.currentChar === ';') {
-				this.tokens.push(new Token(Token.Type.EL, new Position(this.position, this.position + 1), this.currentChar));
+				this.tokens.push(new Token(Token.Type.EL, this.currentChar, new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === '+') {
-				this.tokens.push(new Token(Token.Type.PLUS, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.PLUS, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === '-') {
-				this.tokens.push(new Token(Token.Type.MINUS, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.MINUS, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === '*') {
-				this.tokens.push(new Token(Token.Type.MUL, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.MUL, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === '/') {
-				this.tokens.push(new Token(Token.Type.DIV, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.DIV, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === '%') {
-				this.tokens.push(new Token(Token.Type.MOD, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.MOD, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === '^') {
-				this.tokens.push(new Token(Token.Type.POW, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.POW, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === '(') {
-				this.tokens.push(new Token(Token.Type.LPAREN, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.LPAREN, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === ')') {
-				this.tokens.push(new Token(Token.Type.RPAREN, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.RPAREN, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === '[') {
-				this.tokens.push(new Token(Token.Type.LBRACKET, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.LBRACKET, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === ']') {
-				this.tokens.push(new Token(Token.Type.RBRACKET, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.RBRACKET, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === '{') {
-				this.tokens.push(new Token(Token.Type.LBRACE, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.LBRACE, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === '}') {
-				this.tokens.push(new Token(Token.Type.RBRACE, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.RBRACE, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === ':') {
-				this.tokens.push(new Token(Token.Type.COLON, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.COLON, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else if(this.currentChar === ',') {
-				this.tokens.push(new Token(Token.Type.COMMA, new Position(this.position, this.position + 1)));
+				this.tokens.push(new Token(Token.Type.COMMA, '', new Position(this.position, this.position + 1)));
 				this.advance();
 			} else {
 				throw new Error(`Unrecognized Character '${this.currentChar}' (${this.currentChar.charCodeAt(0)})`);
 			}
 		}
-		this.tokens.push(new Token(Token.Type.EF, new Position(this.position, this.position + 1)));
+		this.tokens.push(new Token(Token.Type.EF, '', new Position(this.position, this.position + 1)));
 		return this.tokens;
 	}
 }

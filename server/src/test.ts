@@ -1,0 +1,5 @@
+export const Degree = {
+	LOW: 0,
+	MID: 1,
+	HIGH: 2
+};

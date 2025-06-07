@@ -1,4 +1,6 @@
+import { assert } from 'chai';
 import { Position } from './position';
+import { Degree } from './test';
 
 export class Token {
 	public static Type = {
@@ -43,7 +45,7 @@ export class Token {
 	protected type: string;
 	protected value: string;
 
-	public constructor(type: string, position: Position, value = '') {
+	public constructor(type: string, value = '', position: Position = new Position()) {
 		this.position = position;
 		this.value = value;
 		this.type = type;
@@ -59,5 +61,14 @@ export class Token {
 	}
 	public match(type: string, value: string): boolean {
 		return this.type === type && this.value === value;
+	}
+	public checkToken(token: Token, degree: number) {
+		assert.strictEqual(this.type, token.type);
+		if(degree >= Degree.MID) {
+			assert.strictEqual(this.value, token.value);
+		}
+		if(degree >= Degree.HIGH) {
+			assert.deepStrictEqual(this.position, token.position);
+		}
 	}
 }
